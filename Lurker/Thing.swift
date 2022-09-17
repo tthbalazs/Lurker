@@ -7,12 +7,14 @@ struct Thing: Codable, Identifiable {
         id: String,
         title: String? = nil,
         subreddit: String? = nil,
-        thumbnail: String? = nil
+        thumbnail: String? = nil,
+        ups: Int? = 0
     ) {
         self.title = title
         self.subreddit = subreddit
         self.thumbnail = thumbnail
         self.id = id
+        self.ups = ups
     }
     
     enum ContainerCodingKeys: String, CodingKey {
@@ -25,12 +27,14 @@ struct Thing: Codable, Identifiable {
         case title
         case id
         case thumbnail
+        case ups
     }
     
     let id: String
     let title: String?
     let subreddit: String?
     let thumbnail: String?
+    let ups: Int?
     
     var thumbnailUrl: URL? {
         guard let thumbnail = self.thumbnail else { return nil }
@@ -49,14 +53,17 @@ struct Thing: Codable, Identifiable {
         self.subreddit = try container.decodeIfPresent(String.self, forKey: .subreddit)
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
         self.thumbnail = try container.decodeIfPresent(String.self, forKey: .thumbnail)
+        self.ups = try container.decodeIfPresent(Int.self, forKey: .ups)
     }
 }
 
 extension Thing {
+    // https://www.reddit.com/r/Wellthatsucks/comments/xgoj2f.json
     static let test: Thing = .init(
-        id: UUID().uuidString,
+        id: "xgoj2f",
         title: "We're testing stuff",
-        subreddit: "test",
-        thumbnail: ""
+        subreddit: "Wellthatsucks",
+        thumbnail: "",
+        ups: 1337
     )
 }

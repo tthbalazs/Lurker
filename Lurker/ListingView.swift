@@ -46,9 +46,9 @@ final class ListingViewViewModel: ObservableObject {
             .sink(
                 receiveCompletion: { _ in
                 },
-                receiveValue: { data in
+                receiveValue: { [weak self] data in
                     DispatchQueue.main.async {
-                        self.images[thing.id] = data
+                        self?.images[thing.id] = data
                     }
                 }
             )
@@ -66,7 +66,7 @@ struct ListingView: View {
         NavigationView {
             List(viewModel.listing?.children ?? []) { thing in
                 NavigationLink(
-                    destination: ThingDetailView(thing: thing),
+                    destination: ThingDetailView(viewModel: .init(thing: thing)),
                     label: {
                         HStack {
                             if
@@ -85,8 +85,15 @@ struct ListingView: View {
                             VStack(alignment: .leading) {
                                 Text(thing.title ?? "")
                                     .font(.headline)
-                                Text(thing.subreddit ?? "")
-                                    .font(.caption)
+                                HStack {
+                                    Text(thing.subreddit ?? "")
+                                        .foregroundColor(.accentColor)
+                                        .font(.caption)
+                                    Spacer()
+                                    Text("\(thing.ups ?? 0)")
+                                        .foregroundColor(.orange)
+                                        .monospacedDigit()
+                                }
                             }
                         }
                         .onAppear(perform: { viewModel.loadImage(for: thing) })

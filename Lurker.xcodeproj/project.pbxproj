@@ -15,6 +15,7 @@
 		DF63A57D28D65232003B857E /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A57C28D65232003B857E /* Thing.swift */; };
 		DF63A57F28D65240003B857E /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A57E28D65240003B857E /* Listing.swift */; };
 		DF63A58128D652C2003B857E /* ThingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A58028D652C2003B857E /* ThingDetailView.swift */; };
+		DF63A58328D65E2A003B857E /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A58228D65E2A003B857E /* Comment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		DF63A57C28D65232003B857E /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
 		DF63A57E28D65240003B857E /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
 		DF63A58028D652C2003B857E /* ThingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingDetailView.swift; sourceTree = "<group>"; };
+		DF63A58228D65E2A003B857E /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				DF63A55628D646EB003B857E /* Assets.xcassets */,
+				DF63A58228D65E2A003B857E /* Comment.swift */,
 				DF63A57E28D65240003B857E /* Listing.swift */,
 				DF63A55428D646EA003B857E /* ListingView.swift */,
 				DF63A55228D646EA003B857E /* LurkerApp.swift */,
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DF63A58128D652C2003B857E /* ThingDetailView.swift in Sources */,
+				DF63A58328D65E2A003B857E /* Comment.swift in Sources */,
 				DF63A55528D646EA003B857E /* ListingView.swift in Sources */,
 				DF63A57D28D65232003B857E /* Thing.swift in Sources */,
 				DF63A57F28D65240003B857E /* Listing.swift in Sources */,
