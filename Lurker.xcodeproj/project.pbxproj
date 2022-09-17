@@ -8,23 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		DF63A55328D646EA003B857E /* LurkerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A55228D646EA003B857E /* LurkerApp.swift */; };
-		DF63A55528D646EA003B857E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A55428D646EA003B857E /* ContentView.swift */; };
+		DF63A55528D646EA003B857E /* ListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A55428D646EA003B857E /* ListingView.swift */; };
 		DF63A55728D646EB003B857E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF63A55628D646EB003B857E /* Assets.xcassets */; };
 		DF63A55A28D646EB003B857E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF63A55928D646EB003B857E /* Preview Assets.xcassets */; };
 		DF63A56428D646EB003B857E /* LurkerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A56328D646EB003B857E /* LurkerTests.swift */; };
-		DF63A56E28D646EB003B857E /* LurkerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A56D28D646EB003B857E /* LurkerUITests.swift */; };
-		DF63A57028D646EB003B857E /* LurkerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A56F28D646EB003B857E /* LurkerUITestsLaunchTests.swift */; };
+		DF63A57D28D65232003B857E /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A57C28D65232003B857E /* Thing.swift */; };
+		DF63A57F28D65240003B857E /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A57E28D65240003B857E /* Listing.swift */; };
+		DF63A58128D652C2003B857E /* ThingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A58028D652C2003B857E /* ThingDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		DF63A56028D646EB003B857E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DF63A54728D646EA003B857E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DF63A54E28D646EA003B857E;
-			remoteInfo = Lurker;
-		};
-		DF63A56A28D646EB003B857E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DF63A54728D646EA003B857E /* Project object */;
 			proxyType = 1;
@@ -36,14 +30,14 @@
 /* Begin PBXFileReference section */
 		DF63A54F28D646EA003B857E /* Lurker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lurker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF63A55228D646EA003B857E /* LurkerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LurkerApp.swift; sourceTree = "<group>"; };
-		DF63A55428D646EA003B857E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DF63A55428D646EA003B857E /* ListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingView.swift; sourceTree = "<group>"; };
 		DF63A55628D646EB003B857E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF63A55928D646EB003B857E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DF63A55F28D646EB003B857E /* LurkerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LurkerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF63A56328D646EB003B857E /* LurkerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LurkerTests.swift; sourceTree = "<group>"; };
-		DF63A56928D646EB003B857E /* LurkerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LurkerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF63A56D28D646EB003B857E /* LurkerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LurkerUITests.swift; sourceTree = "<group>"; };
-		DF63A56F28D646EB003B857E /* LurkerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LurkerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DF63A57C28D65232003B857E /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
+		DF63A57E28D65240003B857E /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
+		DF63A58028D652C2003B857E /* ThingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,13 +55,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF63A56628D646EB003B857E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -76,7 +63,6 @@
 			children = (
 				DF63A55128D646EA003B857E /* Lurker */,
 				DF63A56228D646EB003B857E /* LurkerTests */,
-				DF63A56C28D646EB003B857E /* LurkerUITests */,
 				DF63A55028D646EA003B857E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,7 +72,6 @@
 			children = (
 				DF63A54F28D646EA003B857E /* Lurker.app */,
 				DF63A55F28D646EB003B857E /* LurkerTests.xctest */,
-				DF63A56928D646EB003B857E /* LurkerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,10 +79,13 @@
 		DF63A55128D646EA003B857E /* Lurker */ = {
 			isa = PBXGroup;
 			children = (
-				DF63A55228D646EA003B857E /* LurkerApp.swift */,
-				DF63A55428D646EA003B857E /* ContentView.swift */,
 				DF63A55628D646EB003B857E /* Assets.xcassets */,
+				DF63A57E28D65240003B857E /* Listing.swift */,
+				DF63A55428D646EA003B857E /* ListingView.swift */,
+				DF63A55228D646EA003B857E /* LurkerApp.swift */,
 				DF63A55828D646EB003B857E /* Preview Content */,
+				DF63A57C28D65232003B857E /* Thing.swift */,
+				DF63A58028D652C2003B857E /* ThingDetailView.swift */,
 			);
 			path = Lurker;
 			sourceTree = "<group>";
@@ -116,15 +104,6 @@
 				DF63A56328D646EB003B857E /* LurkerTests.swift */,
 			);
 			path = LurkerTests;
-			sourceTree = "<group>";
-		};
-		DF63A56C28D646EB003B857E /* LurkerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				DF63A56D28D646EB003B857E /* LurkerUITests.swift */,
-				DF63A56F28D646EB003B857E /* LurkerUITestsLaunchTests.swift */,
-			);
-			path = LurkerUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,24 +144,6 @@
 			productReference = DF63A55F28D646EB003B857E /* LurkerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		DF63A56828D646EB003B857E /* LurkerUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DF63A57928D646EB003B857E /* Build configuration list for PBXNativeTarget "LurkerUITests" */;
-			buildPhases = (
-				DF63A56528D646EB003B857E /* Sources */,
-				DF63A56628D646EB003B857E /* Frameworks */,
-				DF63A56728D646EB003B857E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DF63A56B28D646EB003B857E /* PBXTargetDependency */,
-			);
-			name = LurkerUITests;
-			productName = LurkerUITests;
-			productReference = DF63A56928D646EB003B857E /* LurkerUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,10 +158,6 @@
 						CreatedOnToolsVersion = 14.0;
 					};
 					DF63A55E28D646EB003B857E = {
-						CreatedOnToolsVersion = 14.0;
-						TestTargetID = DF63A54E28D646EA003B857E;
-					};
-					DF63A56828D646EB003B857E = {
 						CreatedOnToolsVersion = 14.0;
 						TestTargetID = DF63A54E28D646EA003B857E;
 					};
@@ -221,7 +178,6 @@
 			targets = (
 				DF63A54E28D646EA003B857E /* Lurker */,
 				DF63A55E28D646EB003B857E /* LurkerTests */,
-				DF63A56828D646EB003B857E /* LurkerUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -243,13 +199,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF63A56728D646EB003B857E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -257,7 +206,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF63A55528D646EA003B857E /* ContentView.swift in Sources */,
+				DF63A58128D652C2003B857E /* ThingDetailView.swift in Sources */,
+				DF63A55528D646EA003B857E /* ListingView.swift in Sources */,
+				DF63A57D28D65232003B857E /* Thing.swift in Sources */,
+				DF63A57F28D65240003B857E /* Listing.swift in Sources */,
 				DF63A55328D646EA003B857E /* LurkerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,15 +222,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF63A56528D646EB003B857E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DF63A56E28D646EB003B857E /* LurkerUITests.swift in Sources */,
-				DF63A57028D646EB003B857E /* LurkerUITestsLaunchTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -286,11 +229,6 @@
 			isa = PBXTargetDependency;
 			target = DF63A54E28D646EA003B857E /* Lurker */;
 			targetProxy = DF63A56028D646EB003B857E /* PBXContainerItemProxy */;
-		};
-		DF63A56B28D646EB003B857E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DF63A54E28D646EA003B857E /* Lurker */;
-			targetProxy = DF63A56A28D646EB003B857E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -507,42 +445,6 @@
 			};
 			name = Release;
 		};
-		DF63A57A28D646EB003B857E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 42LR54HVC2;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tthbalazs.LurkerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Lurker;
-			};
-			name = Debug;
-		};
-		DF63A57B28D646EB003B857E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 42LR54HVC2;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tthbalazs.LurkerUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Lurker;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -569,15 +471,6 @@
 			buildConfigurations = (
 				DF63A57728D646EB003B857E /* Debug */,
 				DF63A57828D646EB003B857E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DF63A57928D646EB003B857E /* Build configuration list for PBXNativeTarget "LurkerUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DF63A57A28D646EB003B857E /* Debug */,
-				DF63A57B28D646EB003B857E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
