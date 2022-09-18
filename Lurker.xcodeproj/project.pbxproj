@@ -16,6 +16,7 @@
 		DF63A57F28D65240003B857E /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A57E28D65240003B857E /* Listing.swift */; };
 		DF63A58128D652C2003B857E /* ThingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A58028D652C2003B857E /* ThingDetailView.swift */; };
 		DF63A58328D65E2A003B857E /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A58228D65E2A003B857E /* Comment.swift */; };
+		DF984C5228D7B179003CA97D /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF984C5128D7B179003CA97D /* ImageProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		DF63A57E28D65240003B857E /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
 		DF63A58028D652C2003B857E /* ThingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingDetailView.swift; sourceTree = "<group>"; };
 		DF63A58228D65E2A003B857E /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		DF984C5128D7B179003CA97D /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
+		DF984C5328D7B913003CA97D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +84,7 @@
 		DF63A55128D646EA003B857E /* Lurker */ = {
 			isa = PBXGroup;
 			children = (
+				DF984C5328D7B913003CA97D /* Info.plist */,
 				DF63A55628D646EB003B857E /* Assets.xcassets */,
 				DF63A58228D65E2A003B857E /* Comment.swift */,
 				DF63A57E28D65240003B857E /* Listing.swift */,
@@ -89,6 +93,7 @@
 				DF63A55828D646EB003B857E /* Preview Content */,
 				DF63A57C28D65232003B857E /* Thing.swift */,
 				DF63A58028D652C2003B857E /* ThingDetailView.swift */,
+				DF984C5128D7B179003CA97D /* ImageProvider.swift */,
 			);
 			path = Lurker;
 			sourceTree = "<group>";
@@ -214,6 +219,7 @@
 				DF63A55528D646EA003B857E /* ListingView.swift in Sources */,
 				DF63A57D28D65232003B857E /* Thing.swift in Sources */,
 				DF63A57F28D65240003B857E /* Listing.swift in Sources */,
+				DF984C5228D7B179003CA97D /* ImageProvider.swift in Sources */,
 				DF63A55328D646EA003B857E /* LurkerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +368,7 @@
 				DEVELOPMENT_TEAM = 42LR54HVC2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Lurker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -391,6 +398,7 @@
 				DEVELOPMENT_TEAM = 42LR54HVC2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Lurker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

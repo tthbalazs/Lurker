@@ -2,12 +2,17 @@
 
 import Combine
 import SwiftUI
+import UIKit
 
 class ThingDetailViewModel: ObservableObject {
     @Published var comments: [Comment] = []
+    @Published var thumbnails: [String: UIImage] = [:]
     
-    init(thing: Thing) {
+    let thing: Thing
+    
+    init(thing: Thing, imageProvider: any ImageProvider) {
         self.thing = thing
+        self.imageProvider = imageProvider
     }
     
     func loadComments() {
@@ -38,7 +43,22 @@ class ThingDetailViewModel: ObservableObject {
             )
     }
     
-    let thing: Thing
+    func thumbnail(for thing: Thing) async {
+        guard let thumbnailUrl = thing.thumbnailUrl else {
+            return
+        }
+        
+        if let image = await imageProvider.loadImage(for: thumbnailUrl) {
+            DispatchQueue.main.async {
+                self.thumbnails[thing.id] = image
+            }
+        }
+    }
+    
+    // MARK: - Private
+    
+    private let imageProvider: any ImageProvider
+    
     private var listings: [CommentsListing] = [] {
         didSet {
             guard listings.count >= 2 else {
@@ -55,35 +75,45 @@ struct ThingDetailView: View {
     @ObservedObject var viewModel: ThingDetailViewModel
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(viewModel.thing.subreddit ?? "")
-                .padding([.leading])
-//            if let image = image {
-//                Image(uiImage: image)
-//            }
-            List(viewModel.comments) { comment in
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text(comment.author ?? "")
-                            .foregroundColor(.accentColor)
-                            .font(.subheadline)
-                        Spacer()
-                        Text("\(comment.ups ?? 0)")
-                            .foregroundColor(.orange)
-                            .monospacedDigit()
+        ScrollView {
+            VStack(alignment: .leading) {
+                Text(viewModel.thing.subreddit ?? "")
+                    .padding([.leading])
+                Image(uiImage: viewModel.thumbnails[viewModel.thing.id] ?? thumbnailPlaceholder)
+                    .task {
+                        await viewModel.thumbnail(for: viewModel.thing)
                     }
-                    Text(comment.body ?? "")
+                ForEach(viewModel.comments) { comment in
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text(comment.author ?? "")
+                                .foregroundColor(.accentColor)
+                                .font(.subheadline)
+                            Spacer()
+                            Text("\(comment.ups ?? 0)")
+                                .foregroundColor(.orange)
+                                .monospacedDigit()
+                        }
+                        Text(comment.body ?? "")
+                    }
                 }
+                .listStyle(.plain)
             }
-            .listStyle(.plain)
         }
         .onAppear(perform: viewModel.loadComments)
         .navigationTitle(viewModel.thing.title ?? "") // This is way too long
     }
+    
+    private let thumbnailPlaceholder: UIImage = UIImage(systemName: "photo")!
 }
 
 struct ThingDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ThingDetailView(viewModel: .init(thing: .test))
+        ThingDetailView(
+            viewModel: .init(
+                thing: .test,
+                imageProvider: ImageProviderImpl()
+            )
+        )
     }
 }

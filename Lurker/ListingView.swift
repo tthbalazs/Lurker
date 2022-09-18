@@ -5,7 +5,11 @@ import SwiftUI
 
 final class ListingViewViewModel: ObservableObject {
     @Published var listing: Listing?
-    @Published var images: [String: Data] = [:]
+    @Published var thumbnails: [String: UIImage] = [:]
+    
+    public init(imageProvider: any ImageProvider) {
+        self.imageProvider = imageProvider
+    }
     
     func reload() {
         URLSession(configuration: .default)
@@ -27,36 +31,21 @@ final class ListingViewViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func loadImage(for thing: Thing) {
-        if images[thing.id] != nil {
+    func thumbnail(for thing: Thing) async {
+        guard let thumbnailUrl = thing.thumbnailUrl else {
             return
         }
         
-        guard let thumbnailUrl = thing.thumbnailUrl else { return }
-        
-        URLSession(configuration: .default)
-            .dataTaskPublisher(for: thumbnailUrl)
-            .tryMap { element -> Data in
-                guard let httpResponse = element.response as? HTTPURLResponse,
-                      httpResponse.statusCode == 200 else {
-                    throw URLError(.badServerResponse)
-                }
-                return element.data
+        if let image = await imageProvider.loadImage(for: thumbnailUrl) {
+            DispatchQueue.main.async {
+                self.thumbnails[thing.id] = image
             }
-            .sink(
-                receiveCompletion: { _ in
-                },
-                receiveValue: { [weak self] data in
-                    DispatchQueue.main.async {
-                        self?.images[thing.id] = data
-                    }
-                }
-            )
-            .store(in: &cancellables)
+        }
     }
     
     private var cancellables: Set<AnyCancellable> = .init()
     private let url: URL = URL(string: "https://www.reddit.com/r/all.json")!
+    let imageProvider: any ImageProvider
 }
 
 struct ListingView: View {
@@ -66,22 +55,27 @@ struct ListingView: View {
         NavigationView {
             List(viewModel.listing?.children ?? []) { thing in
                 NavigationLink(
-                    destination: ThingDetailView(viewModel: .init(thing: thing)),
+                    destination: ThingDetailView(
+                        viewModel: .init(
+                            thing: thing,
+                            imageProvider: viewModel.imageProvider
+                        )
+                    ),
                     label: {
                         HStack {
-                            if
-                                let imageData = viewModel.images[thing.id],
-                                let image = UIImage(data: imageData) {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(
-                                        maxWidth: 44,
-                                        maxHeight: 44,
-                                        alignment: .topLeading
-                                    )
-                                    .clipped()
-                            }
+                            Image(uiImage: viewModel.thumbnails[thing.id] ?? thumbnailPlaceholder)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(
+                                    maxWidth: 44,
+                                    maxHeight: 44,
+                                    alignment: .topLeading
+                                )
+                                .clipped()
+                                .task {
+                                    await viewModel.thumbnail(for: thing)
+                                }
+                            
                             VStack(alignment: .leading) {
                                 Text(thing.title ?? "")
                                     .font(.headline)
@@ -96,7 +90,6 @@ struct ListingView: View {
                                 }
                             }
                         }
-                        .onAppear(perform: { viewModel.loadImage(for: thing) })
                     }
                 )
             }
@@ -106,10 +99,12 @@ struct ListingView: View {
         .onAppear(perform: viewModel.reload)
         .padding()
     }
+    
+    private let thumbnailPlaceholder: UIImage = UIImage(systemName: "photo")!
 }
 
 struct ListingView_Previews: PreviewProvider {
     static var previews: some View {
-        ListingView(viewModel: .init())
+        ListingView(viewModel: .init(imageProvider: ImageProviderImpl()))
     }
 }
