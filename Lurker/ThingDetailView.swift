@@ -64,10 +64,17 @@ struct ThingDetailView: View {
             VStack(alignment: .leading) {
                 Text(viewModel.link.subreddit ?? "")
                     .padding([.leading])
-                Image(uiImage: viewModel.thumbnails[viewModel.thing.id] ?? thumbnailPlaceholder)
-                    .task {
-                        await viewModel.thumbnail(for: viewModel.thing)
+                if let thumbnailUrl = viewModel.link.thumbnailUrl {
+                    AsyncImage(url: thumbnailUrl) { phase in
+                        if let image = phase.image {
+                            image.resizable()
+                        } else if phase.error != nil {
+                        } else {
+                            ProgressView()
+                        }
                     }
+                    .aspectRatio(contentMode: .fit)
+                }
                 ForEach(viewModel.comments) { comment in
                     VStack(alignment: .leading) {
                         HStack {
