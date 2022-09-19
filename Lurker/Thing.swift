@@ -8,11 +8,13 @@ struct Thing: Codable, Identifiable {
         title: String? = nil,
         subreddit: String? = nil,
         thumbnail: String? = nil,
+        thumbnailHeight: CGFloat? = 70,
         ups: Int? = 0
     ) {
         self.title = title
         self.subreddit = subreddit
         self.thumbnail = thumbnail
+        self.thumbnailHeight = thumbnailHeight
         self.id = id
         self.ups = ups
     }
@@ -27,6 +29,7 @@ struct Thing: Codable, Identifiable {
         case title
         case id
         case thumbnail
+        case thumbnailHeight = "thumbnail_height"
         case ups
     }
     
@@ -34,6 +37,7 @@ struct Thing: Codable, Identifiable {
     let title: String?
     let subreddit: String?
     let thumbnail: String?
+    let thumbnailHeight: CGFloat?
     let ups: Int?
     
     var thumbnailUrl: URL? {
@@ -53,6 +57,7 @@ struct Thing: Codable, Identifiable {
         self.subreddit = try container.decodeIfPresent(String.self, forKey: .subreddit)
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
         self.thumbnail = try container.decodeIfPresent(String.self, forKey: .thumbnail)
+        self.thumbnailHeight = try container.decodeIfPresent(CGFloat.self, forKey: .thumbnailHeight)
         self.ups = try container.decodeIfPresent(Int.self, forKey: .ups)
     }
 }

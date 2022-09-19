@@ -44,7 +44,7 @@ final class ListingViewViewModel: ObservableObject {
     }
     
     private var cancellables: Set<AnyCancellable> = .init()
-    private let url: URL = URL(string: "https://www.reddit.com/r/all.json")!
+    private let url: URL = URL(string: "https://www.reddit.com/r/all.json?limit=5")!
     let imageProvider: any ImageProvider
 }
 
@@ -62,36 +62,33 @@ struct ListingView: View {
                         )
                     ),
                     label: {
-                        HStack {
-                            Image(uiImage: viewModel.thumbnails[thing.id] ?? thumbnailPlaceholder)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(
-                                    maxWidth: 44,
-                                    maxHeight: 44,
-                                    alignment: .topLeading
-                                )
-                                .clipped()
-                                .task {
-                                    await viewModel.thumbnail(for: thing)
+                        VStack(alignment: .leading) {
+                            if let thumbnailUrl = thing.thumbnailUrl {
+                                AsyncImage(url: thumbnailUrl) { phase in
+                                    if let image = phase.image {
+                                        image.resizable()
+                                    } else if phase.error != nil {
+                                    } else {
+                                        ProgressView()
+                                    }
                                 }
-                            
-                            VStack(alignment: .leading) {
-                                Text(thing.title ?? "")
-                                    .font(.headline)
-                                HStack {
-                                    Text(thing.subreddit ?? "")
-                                        .foregroundColor(.accentColor)
-                                        .font(.caption)
-                                    Spacer()
-                                    Text("\(thing.ups ?? 0)")
-                                        .foregroundColor(.orange)
-                                        .monospacedDigit()
-                                }
+                                .frame(minHeight: 0, idealHeight: thing.thumbnailHeight ?? 0)
+                            }
+                            Text(thing.title ?? "")
+                                .font(.headline)
+                            HStack {
+                                Text(thing.subreddit ?? "")
+                                    .foregroundColor(.accentColor)
+                                    .font(.caption)
+                                Spacer()
+                                Text("\(thing.ups ?? 0)")
+                                    .foregroundColor(.orange)
+                                    .monospacedDigit()
                             }
                         }
                     }
                 )
+                .listRowSeparator(.hidden)
             }
             .navigationTitle("/r/all")
         }
@@ -99,8 +96,6 @@ struct ListingView: View {
         .onAppear(perform: viewModel.reload)
         .padding()
     }
-    
-    private let thumbnailPlaceholder: UIImage = UIImage(systemName: "photo")!
 }
 
 struct ListingView_Previews: PreviewProvider {
