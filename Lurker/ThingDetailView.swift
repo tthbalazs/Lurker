@@ -14,46 +14,31 @@ class ThingDetailViewModel: ObservableObject {
         self.link = link
     }
     
-    func loadComments() {
+    func loadComments() async {
         guard
             let subreddit = link.subreddit,
             let commentUrl = URL(string: "https://www.reddit.com/r/\(subreddit)/comments/\(link.id).json")
         else {
             return
         }
-                
-        cancellable = URLSession(configuration: .default)
-            .dataTaskPublisher(for: commentUrl)
-            .tryMap { element -> Data in
-                guard let httpResponse = element.response as? HTTPURLResponse,
-                      httpResponse.statusCode == 200 else {
-                    throw URLError(.badServerResponse)
+        
+        do {
+            let (data, _) = try await URLSession(configuration: .default).data(from: commentUrl)
+            let listings = try JSONDecoder().decode([Listing].self, from: data)
+            DispatchQueue.main.async {
+                self.listings = listings
+                if listings.count >= 2 {
+                    self.comments = listings[1].children.compactMap(\.comment)
                 }
-                return element.data
             }
-            .decode(type: [Listing].self, decoder: JSONDecoder())
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [weak self] listings in
-                    DispatchQueue.main.async {
-                        self?.listings = listings
-                    }
-                }
-            )
+        } catch {
+            print(error)
+        }
     }
     
     // MARK: - Private
     
-    private var listings: [Listing] = [] {
-        didSet {
-            guard listings.count >= 2 else {
-                return
-            }
-            
-            comments = listings[1].children.compactMap(\.comment)
-        }
-    }
-    private var cancellable: AnyCancellable?
+    private var listings: [Listing] = []
 }
 
 struct ThingDetailView: View {
@@ -62,41 +47,20 @@ struct ThingDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Text(viewModel.link.subreddit ?? "")
-                    .padding([.leading])
-                if let thumbnailUrl = viewModel.link.thumbnailUrl {
-                    AsyncImage(url: thumbnailUrl) { phase in
-                        if let image = phase.image {
-                            image.resizable()
-                        } else if phase.error != nil {
-                        } else {
-                            ProgressView()
-                        }
-                    }
-                    .aspectRatio(contentMode: .fit)
-                }
+                LinkView(link: viewModel.link)
+                    .padding([.bottom])
                 ForEach(viewModel.comments) { comment in
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text(comment.author ?? "")
-                                .foregroundColor(.accentColor)
-                                .font(.subheadline)
-                            Spacer()
-                            Text("\(comment.ups ?? 0)")
-                                .foregroundColor(.orange)
-                                .monospacedDigit()
-                        }
-                        Text(comment.body ?? "")
-                    }
+                    CommentView(comment: comment)
+                        .padding([.bottom])
                 }
                 .listStyle(.plain)
             }
         }
-        .onAppear(perform: viewModel.loadComments)
         .navigationTitle(viewModel.link.title ?? "") // This is way too long
+        .task {
+            await viewModel.loadComments()
+        }
     }
-    
-    private let thumbnailPlaceholder: UIImage = UIImage(systemName: "photo")!
 }
 
 struct ThingDetailView_Previews: PreviewProvider {

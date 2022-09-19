@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct Link: Decodable, Identifiable {
+struct Link: Decodable, Identifiable, Hashable {
     enum CodingKeys: String, CodingKey {
         case subreddit
         case title

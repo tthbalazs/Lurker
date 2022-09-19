@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DF22835928D913B500B8CC78 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF22835828D913B500B8CC78 /* Link.swift */; };
+		DF22835B28D91E5200B8CC78 /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF22835A28D91E5200B8CC78 /* LinkView.swift */; };
+		DF22835D28D920F900B8CC78 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF22835C28D920F900B8CC78 /* CommentView.swift */; };
 		DF63A55328D646EA003B857E /* LurkerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A55228D646EA003B857E /* LurkerApp.swift */; };
 		DF63A55528D646EA003B857E /* ListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A55428D646EA003B857E /* ListingView.swift */; };
 		DF63A55728D646EB003B857E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF63A55628D646EB003B857E /* Assets.xcassets */; };
@@ -32,6 +34,8 @@
 
 /* Begin PBXFileReference section */
 		DF22835828D913B500B8CC78 /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		DF22835A28D91E5200B8CC78 /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
+		DF22835C28D920F900B8CC78 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		DF63A54F28D646EA003B857E /* Lurker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lurker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF63A55228D646EA003B857E /* LurkerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LurkerApp.swift; sourceTree = "<group>"; };
 		DF63A55428D646EA003B857E /* ListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingView.swift; sourceTree = "<group>"; };
@@ -88,9 +92,11 @@
 			children = (
 				DF63A55628D646EB003B857E /* Assets.xcassets */,
 				DF63A58228D65E2A003B857E /* Comment.swift */,
+				DF22835C28D920F900B8CC78 /* CommentView.swift */,
 				DF984C5128D7B179003CA97D /* ImageProvider.swift */,
 				DF984C5328D7B913003CA97D /* Info.plist */,
 				DF22835828D913B500B8CC78 /* Link.swift */,
+				DF22835A28D91E5200B8CC78 /* LinkView.swift */,
 				DF63A57E28D65240003B857E /* Listing.swift */,
 				DF63A55428D646EA003B857E /* ListingView.swift */,
 				DF63A55228D646EA003B857E /* LurkerApp.swift */,
@@ -224,6 +230,8 @@
 				DF63A57D28D65232003B857E /* Thing.swift in Sources */,
 				DF63A57F28D65240003B857E /* Listing.swift in Sources */,
 				DF984C5228D7B179003CA97D /* ImageProvider.swift in Sources */,
+				DF22835B28D91E5200B8CC78 /* LinkView.swift in Sources */,
+				DF22835D28D920F900B8CC78 /* CommentView.swift in Sources */,
 				DF63A55328D646EA003B857E /* LurkerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

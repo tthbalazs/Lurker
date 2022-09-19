@@ -29,4 +29,11 @@ struct Comment: Decodable, Identifiable {
         self.author = try container.decodeIfPresent(String.self, forKey: .author)
         self.ups = try container.decodeIfPresent(Int.self, forKey: .ups)
     }
+    
+    init(id: String, body: String? = nil, author: String? = nil, ups: Int? = nil) {
+        self.id = id
+        self.body = body
+        self.author = author
+        self.ups = ups
+    }
 }
