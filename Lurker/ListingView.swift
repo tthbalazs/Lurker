@@ -5,11 +5,8 @@ import SwiftUI
 
 final class ListingViewViewModel: ObservableObject {
     @Published var listing: Listing?
+    @Published var links: [Link] = []
     @Published var thumbnails: [String: UIImage] = [:]
-    
-    public init(imageProvider: any ImageProvider) {
-        self.imageProvider = imageProvider
-    }
     
     func reload() {
         URLSession(configuration: .default)
@@ -26,26 +23,14 @@ final class ListingViewViewModel: ObservableObject {
             }, receiveValue: { [weak self] listing in
                 DispatchQueue.main.async {
                     self?.listing = listing
+                    self?.links = listing.children.compactMap(\.link)
                 }
             })
             .store(in: &cancellables)
     }
     
-    func thumbnail(for thing: Thing) async {
-        guard let thumbnailUrl = thing.thumbnailUrl else {
-            return
-        }
-        
-        if let image = await imageProvider.loadImage(for: thumbnailUrl) {
-            DispatchQueue.main.async {
-                self.thumbnails[thing.id] = image
-            }
-        }
-    }
-    
     private var cancellables: Set<AnyCancellable> = .init()
-    private let url: URL = URL(string: "https://www.reddit.com/r/all.json?limit=5")!
-    let imageProvider: any ImageProvider
+    private let url: URL = URL(string: "https://www.reddit.com/r/all.json")!
 }
 
 struct ListingView: View {
@@ -53,17 +38,16 @@ struct ListingView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.listing?.children ?? []) { thing in
+            List(viewModel.links) { link in
                 NavigationLink(
                     destination: ThingDetailView(
-                        viewModel: .init(
-                            thing: thing,
-                            imageProvider: viewModel.imageProvider
+                        viewModel: ThingDetailViewModel(
+                            link: link
                         )
                     ),
                     label: {
                         VStack(alignment: .leading) {
-                            if let thumbnailUrl = thing.thumbnailUrl {
+                            if let thumbnailUrl = link.thumbnailUrl {
                                 AsyncImage(url: thumbnailUrl) { phase in
                                     if let image = phase.image {
                                         image.resizable()
@@ -72,16 +56,16 @@ struct ListingView: View {
                                         ProgressView()
                                     }
                                 }
-                                .frame(minHeight: 0, idealHeight: thing.thumbnailHeight ?? 0)
+                                .aspectRatio(contentMode: .fit)
                             }
-                            Text(thing.title ?? "")
+                            Text(link.title ?? "")
                                 .font(.headline)
                             HStack {
-                                Text(thing.subreddit ?? "")
+                                Text(link.subreddit ?? "")
                                     .foregroundColor(.accentColor)
                                     .font(.caption)
                                 Spacer()
-                                Text("\(thing.ups ?? 0)")
+                                Text("\(link.ups ?? 0)")
                                     .foregroundColor(.orange)
                                     .monospacedDigit()
                             }
@@ -100,6 +84,8 @@ struct ListingView: View {
 
 struct ListingView_Previews: PreviewProvider {
     static var previews: some View {
-        ListingView(viewModel: .init(imageProvider: ImageProviderImpl()))
+        ListingView(
+            viewModel: ListingViewViewModel()
+        )
     }
 }

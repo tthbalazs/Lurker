@@ -8,17 +8,16 @@ class ThingDetailViewModel: ObservableObject {
     @Published var comments: [Comment] = []
     @Published var thumbnails: [String: UIImage] = [:]
     
-    let thing: Thing
+    let link: Link
     
-    init(thing: Thing, imageProvider: any ImageProvider) {
-        self.thing = thing
-        self.imageProvider = imageProvider
+    init(link: Link) {
+        self.link = link
     }
     
     func loadComments() {
         guard
-            let subreddit = thing.subreddit,
-            let commentUrl = URL(string: "https://www.reddit.com/r/\(subreddit)/comments/\(thing.id).json")
+            let subreddit = link.subreddit,
+            let commentUrl = URL(string: "https://www.reddit.com/r/\(subreddit)/comments/\(link.id).json")
         else {
             return
         }
@@ -32,7 +31,7 @@ class ThingDetailViewModel: ObservableObject {
                 }
                 return element.data
             }
-            .decode(type: [CommentsListing].self, decoder: JSONDecoder())
+            .decode(type: [Listing].self, decoder: JSONDecoder())
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] listings in
@@ -43,29 +42,15 @@ class ThingDetailViewModel: ObservableObject {
             )
     }
     
-    func thumbnail(for thing: Thing) async {
-        guard let thumbnailUrl = thing.thumbnailUrl else {
-            return
-        }
-        
-        if let image = await imageProvider.loadImage(for: thumbnailUrl) {
-            DispatchQueue.main.async {
-                self.thumbnails[thing.id] = image
-            }
-        }
-    }
-    
     // MARK: - Private
     
-    private let imageProvider: any ImageProvider
-    
-    private var listings: [CommentsListing] = [] {
+    private var listings: [Listing] = [] {
         didSet {
             guard listings.count >= 2 else {
                 return
             }
             
-            comments = listings[1].children
+            comments = listings[1].children.compactMap(\.comment)
         }
     }
     private var cancellable: AnyCancellable?
@@ -77,7 +62,7 @@ struct ThingDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Text(viewModel.thing.subreddit ?? "")
+                Text(viewModel.link.subreddit ?? "")
                     .padding([.leading])
                 Image(uiImage: viewModel.thumbnails[viewModel.thing.id] ?? thumbnailPlaceholder)
                     .task {
@@ -101,7 +86,7 @@ struct ThingDetailView: View {
             }
         }
         .onAppear(perform: viewModel.loadComments)
-        .navigationTitle(viewModel.thing.title ?? "") // This is way too long
+        .navigationTitle(viewModel.link.title ?? "") // This is way too long
     }
     
     private let thumbnailPlaceholder: UIImage = UIImage(systemName: "photo")!
@@ -111,8 +96,10 @@ struct ThingDetailView_Previews: PreviewProvider {
     static var previews: some View {
         ThingDetailView(
             viewModel: .init(
-                thing: .test,
-                imageProvider: ImageProviderImpl()
+                link: Link(
+                    id: "xihs0h",
+                    thumbnail: "https://b.thumbs.redditmedia.com/XjdzVIgg1Niu_6rMnghNAanLC9kUUp2o-gpE9p2mOmg.jpg"
+                )
             )
         )
     }

@@ -6,7 +6,9 @@ import SwiftUI
 struct LurkerApp: App {
     var body: some Scene {
         WindowGroup {
-            ListingView(viewModel: .init(imageProvider: ImageProviderImpl()))
+            ListingView(
+                viewModel: ListingViewViewModel()
+            )
         }
     }
 }

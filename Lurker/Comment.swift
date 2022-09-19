@@ -3,11 +3,6 @@
 import Foundation
 
 struct Comment: Decodable, Identifiable {
-    enum ContainerCodingKeys: String, CodingKey {
-        case kind
-        case data
-    }
-    
     enum CodingKeys: String, CodingKey {
         case id
         case body
@@ -20,9 +15,11 @@ struct Comment: Decodable, Identifiable {
     let author: String?
     let ups: Int?
     
+    // MARK: - Init methods
+    
     init(from decoder: Decoder) throws {
-        let parentContainer = try decoder.container(keyedBy: ContainerCodingKeys.self)
-        let container = try parentContainer.nestedContainer(
+        let superContainer = try decoder.container(keyedBy: Thing.CodingKeys.self)
+        let container = try superContainer.nestedContainer(
             keyedBy: CodingKeys.self,
             forKey: .data
         )
