@@ -72,9 +72,12 @@ struct SubredditListView: View {
                 }
             }
         }
+        .refreshable {
+            await viewModel.reload()
+        }
         .searchable(text: $viewModel.searchTerm)
         .searchSuggestions {
-            List(viewModel.subreddits) { subreddit in
+            ForEach(viewModel.subreddits) { subreddit in
                 Text(subreddit.displayName).searchCompletion(subreddit.displayName)
             }
         }
