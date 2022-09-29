@@ -5,6 +5,7 @@ import Foundation
 enum Thing: Decodable {
     case comment(Comment)
     case link(Link)
+    case subreddit(Subreddit)
     case unknown
     
     enum CodingKeys: String, CodingKey {
@@ -23,6 +24,9 @@ enum Thing: Decodable {
         case "t3":
             let link = try Link(from: decoder)
             self = .link(link)
+        case "t5":
+            let subreddit = try Subreddit(from: decoder)
+            self = .subreddit(subreddit)
         default:
             self = .unknown
         }
@@ -40,6 +44,13 @@ enum Thing: Decodable {
     var link: Link? {
         if case let .link(link) = self {
             return link
+        }
+        return nil
+    }
+     
+    var subreddit: Subreddit? {
+        if case let .subreddit(subreddit) = self {
+            return subreddit
         }
         return nil
     }

@@ -6,9 +6,9 @@ import SwiftUI
 struct LurkerApp: App {
     var body: some Scene {
         WindowGroup {
-            ListingView(
-                viewModel: ListingViewViewModel()
-            )
+            NavigationView {
+                SubredditListView(viewModel: .init())
+            }
         }
     }
 }

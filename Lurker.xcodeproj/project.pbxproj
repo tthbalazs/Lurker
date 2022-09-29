@@ -18,6 +18,8 @@
 		DF63A57F28D65240003B857E /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A57E28D65240003B857E /* Listing.swift */; };
 		DF63A58128D652C2003B857E /* ThingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A58028D652C2003B857E /* ThingDetailView.swift */; };
 		DF63A58328D65E2A003B857E /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63A58228D65E2A003B857E /* Comment.swift */; };
+		DF81A85628E63CA3003DE303 /* SubredditListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF81A85528E63CA3003DE303 /* SubredditListView.swift */; };
+		DF81A85828E63D80003DE303 /* Subreddit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF81A85728E63D80003DE303 /* Subreddit.swift */; };
 		DF984C5228D7B179003CA97D /* ImageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF984C5128D7B179003CA97D /* ImageProvider.swift */; };
 		DF984C5528D7C7F3003CA97D /* ImageProviderImplTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF984C5428D7C7F3003CA97D /* ImageProviderImplTests.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +48,8 @@
 		DF63A57E28D65240003B857E /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
 		DF63A58028D652C2003B857E /* ThingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingDetailView.swift; sourceTree = "<group>"; };
 		DF63A58228D65E2A003B857E /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		DF81A85528E63CA3003DE303 /* SubredditListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditListView.swift; sourceTree = "<group>"; };
+		DF81A85728E63D80003DE303 /* Subreddit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subreddit.swift; sourceTree = "<group>"; };
 		DF984C5128D7B179003CA97D /* ImageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProvider.swift; sourceTree = "<group>"; };
 		DF984C5328D7B913003CA97D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DF984C5428D7C7F3003CA97D /* ImageProviderImplTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProviderImplTests.swift; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 				DF63A55428D646EA003B857E /* ListingView.swift */,
 				DF63A55228D646EA003B857E /* LurkerApp.swift */,
 				DF63A55828D646EB003B857E /* Preview Content */,
+				DF81A85728E63D80003DE303 /* Subreddit.swift */,
+				DF81A85528E63CA3003DE303 /* SubredditListView.swift */,
 				DF63A57C28D65232003B857E /* Thing.swift */,
 				DF63A58028D652C2003B857E /* ThingDetailView.swift */,
 			);
@@ -227,6 +233,8 @@
 				DF63A58328D65E2A003B857E /* Comment.swift in Sources */,
 				DF63A55528D646EA003B857E /* ListingView.swift in Sources */,
 				DF22835928D913B500B8CC78 /* Link.swift in Sources */,
+				DF81A85828E63D80003DE303 /* Subreddit.swift in Sources */,
+				DF81A85628E63CA3003DE303 /* SubredditListView.swift in Sources */,
 				DF63A57D28D65232003B857E /* Thing.swift in Sources */,
 				DF63A57F28D65240003B857E /* Listing.swift in Sources */,
 				DF984C5228D7B179003CA97D /* ImageProvider.swift in Sources */,
