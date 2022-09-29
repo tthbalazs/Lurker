@@ -2,7 +2,23 @@ import SwiftUI
 
 final class SubredditListViewModel: ObservableObject {
     @Published var subreddits: [Subreddit] = []
+    @Published var filteredSubreddits: [Subreddit] = []
+    
     @Published var listing: Listing?
+    @Published var searchTerm: String = ""
+    
+    func search() {
+        let search = searchTerm.lowercased()
+        if search.isEmpty {
+            filteredSubreddits = subreddits
+            return
+        }
+        
+        filteredSubreddits = subreddits
+            .filter {
+                $0.displayName.hasPrefix(search)
+            }
+    }
     
     func reload() async {
         do {
@@ -11,6 +27,7 @@ final class SubredditListViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.listing = listing
                 self.subreddits = listing.children.compactMap(\.subreddit)
+                self.filteredSubreddits = self.subreddits
             }
         } catch {
             print(error)
@@ -24,7 +41,7 @@ struct SubredditListView: View {
     @ObservedObject var viewModel: SubredditListViewModel
     
     var body: some View {
-        List(viewModel.subreddits) { subreddit in
+        List(viewModel.filteredSubreddits) { subreddit in
             NavigationLink {
                 ListingView(viewModel: .init(subreddit: subreddit))
             } label: {
@@ -54,6 +71,15 @@ struct SubredditListView: View {
                     }
                 }
             }
+        }
+        .searchable(text: $viewModel.searchTerm)
+        .searchSuggestions {
+            List(viewModel.subreddits) { subreddit in
+                Text(subreddit.displayName).searchCompletion(subreddit.displayName)
+            }
+        }
+        .onSubmit(of: .search) {
+            viewModel.search()
         }
         .listStyle(.plain)
         .navigationTitle("Subreddits")
