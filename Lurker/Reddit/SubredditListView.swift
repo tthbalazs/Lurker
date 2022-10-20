@@ -5,18 +5,21 @@ final class SubredditListViewModel: ObservableObject {
     @Published var filteredSubreddits: [Subreddit] = []
     
     @Published var listing: Listing?
-    @Published var searchTerm: String = ""
+    @Published var searchTerm: String = "" {
+        didSet {
+            search()
+        }
+    }
     
     func search() {
-        let search = searchTerm.lowercased()
-        if search.isEmpty {
+        if searchTerm.isEmpty {
             filteredSubreddits = subreddits
             return
         }
         
         filteredSubreddits = subreddits
             .filter {
-                $0.displayName.hasPrefix(search)
+                $0.displayName.localizedCaseInsensitiveContains(searchTerm)
             }
     }
     
@@ -26,7 +29,7 @@ final class SubredditListViewModel: ObservableObject {
             let listing = try JSONDecoder().decode(Listing.self, from: data)
             DispatchQueue.main.async {
                 self.listing = listing
-                self.subreddits = listing.children.compactMap(\.subreddit)
+                self.subreddits = listing.children.compactMap(\.subreddit).sorted(by: <)
                 self.filteredSubreddits = self.subreddits
             }
         } catch {
@@ -76,14 +79,6 @@ struct SubredditListView: View {
             await viewModel.reload()
         }
         .searchable(text: $viewModel.searchTerm)
-        .searchSuggestions {
-            ForEach(viewModel.subreddits) { subreddit in
-                Text(subreddit.displayName).searchCompletion(subreddit.displayName)
-            }
-        }
-        .onSubmit(of: .search) {
-            viewModel.search()
-        }
         .listStyle(.plain)
         .navigationTitle("Subreddits")
         .task {

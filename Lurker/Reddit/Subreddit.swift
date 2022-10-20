@@ -1,7 +1,15 @@
 import Foundation
 
-struct Subreddit: Decodable, Identifiable, Hashable {
-    internal init(id: String, title: String, displayName: String, publicDescription: String, iconImage: URL? = nil, url: String, displayNamePrefixed: String) {
+struct Subreddit: Decodable, Identifiable, Hashable, Comparable {
+    init(
+        id: String,
+        title: String,
+        displayName: String,
+        publicDescription: String,
+        iconImage: URL? = nil,
+        url: String,
+        displayNamePrefixed: String
+    ) {
         self.id = id
         self.title = title
         self.displayName = displayName
@@ -45,5 +53,9 @@ struct Subreddit: Decodable, Identifiable, Hashable {
         self.iconImage = URL(string: iconImg ?? "")
         self.url = try container.decode(String.self, forKey: .url)
         self.displayNamePrefixed = try container.decode(String.self, forKey: .displayNamePrefixed)
+    }
+    
+    static func < (lhs: Subreddit, rhs: Subreddit) -> Bool {
+        lhs.displayName.lowercased() < rhs.displayName.lowercased()
     }
 }
