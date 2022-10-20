@@ -7,7 +7,11 @@ struct LurkerApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                SubredditListView(viewModel: .init())
+                List {
+                    NavigationLink("Reddit", destination: SubredditListView(viewModel: .init()))
+                    NavigationLink("Hacker News", destination: TopStoriesView(viewModel: .init()))
+                }
+                .navigationTitle("Choose a feed")
             }
         }
     }
